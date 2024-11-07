@@ -30,6 +30,11 @@ const server = http.createServer((req, res) => {
     req.url === "/" ? "index.html" : req.url
   );
 
+  if (req.url.includes('..')) {
+    res.writeHead(403);
+    res.end('Request is blocked');
+    return;
+  }
   // Extension of file
   let extname = path.extname(filePath);
 
